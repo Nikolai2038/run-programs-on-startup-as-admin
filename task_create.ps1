@@ -8,7 +8,7 @@ $trigger = New-ScheduledTaskTrigger -AtLogOn
 # Переменную будем передавать в сам скрипт
 $scriptFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "& '${scriptFolder}/task_script.ps1' '${scriptFolder}'"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden & '${scriptFolder}/task_script.ps1' '${scriptFolder}'"
 
 # Снимаем регистрацию с задания, если оно уже существует
 ($is_job_already_created = Get-ScheduledTask -TaskName "$taskName") 2> $null;
