@@ -7,7 +7,7 @@ if (!($scriptFolder)) {
     $scriptFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 }
 # Путь к папке с ярлыками
-$pathToExecutables = "$scriptFolder/executables"
+$pathToLinks = "$scriptFolder/links"
 
 # Проверяет, заблокирован ли файл каким-либо процессом
 function isLockedBySomeProcesses ($fileName) {
@@ -22,12 +22,12 @@ function isLockedBySomeProcesses ($fileName) {
 }
 
 # Для каждого файла в папке с ярлыками
-$files = (Get-ChildItem "$pathToExecutables")
+$files = (Get-ChildItem "$pathToLinks")
 foreach ($filePath in $files) {
     # Рассматриваем только ярлыки
     if ($filePath -match "^(.*).lnk$") {
         $fileName = ($filePath | ForEach-Object { $_.Name })
-        $fileFullPath = "$pathToExecutables/$fileName"
+        $fileFullPath = "$pathToLinks/$fileName"
         # Путь к exe-файлу
         $exePath = (New-Object -ComObject WScript.Shell).CreateShortcut("$fileFullPath").TargetPath
         if ((Test-Path -Path "$exePath") -eq $false) {
