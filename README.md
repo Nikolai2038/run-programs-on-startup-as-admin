@@ -1,14 +1,18 @@
-Данный скрипт позволяет создать автозагрузку приложений, которые будут запускаться от имени администратора при входе пользователя в Windows (ибо автозагрузка в самом Windows не позволяет запускать приложения от имени администратора).
+**EN** | [RU](README_ru.md)
 
-Это достигается при помощи создания соответствующего запланированного задания. Для его создания необходимо запустить `PowerShell` **от имени администратора**, и выполнить:
+This script allows you to create an application startup that will run as an administrator when a user logs into Windows (because startup in Windows itself does not allow you to run applications as an administrator).
+
+This is achieved by creating an appropriate scheduled task. To create it, you need to run `PowerShell` **as administrator**, and execute:
 ```powershell
-& "<путь к склонированному репозиторию>/task_create.ps1"
+& "<path to the cloned repository>/task_create.ps1"
 ```
-Ввести:
+Enter:
 ```powershell
 Y
 ```
 
-Созданное запланированное задание можно посмотреть в `Планировщике заданий Windows` и изменить вручную, если требуется. Название создаваемого задания: `RunProgramsOnStartup`. Повторный вызов скрипта `task_create.ps1` пересоздаст задание.
+The created scheduled task can be viewed in the `Windows Task Manager` and changed manually if required. The name of the task being created: `RunProgramsOnStartup`. Calling the `task_create.ps1` script again will recreate the task.
 
-Само задание вызывает скрипт `task_script.ps1`, который, в свою очередь, в цикле запускает все ярлыки программ, расположенных в папке `<путь к склонированному репозиторию>/links`. На данный момент скрипт работает именно с ярлыками, а не исполняемыми файлами. Если ярлыков нет, то ничего не произойдёт.
+The task itself calls the script `task_script.ps1`, which, in turn, runs all shortcuts of programs located in the folder `<path to the cloned repository>/links` in a loop. At the moment, the script works with shortcuts, not executable files. If there are no shortcuts, then nothing will happen.
+
+Feel free to contribute!

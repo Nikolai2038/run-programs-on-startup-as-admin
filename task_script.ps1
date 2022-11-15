@@ -1,15 +1,15 @@
 ﻿#!/usr/bin/env pwsh
 
-# Путь к папке со скриптом
+# Path to the script folder
 param([string]$scriptFolder = "")
-# Чтобы скрипт можно было запускать вручную
+# So that the script can be run manually
 if (!($scriptFolder)) {
     $scriptFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 }
-# Путь к папке с ярлыками
+# Path to the folder with shortcuts
 $pathToLinks = "$scriptFolder/links"
 
-# Проверяет, заблокирован ли файл каким-либо процессом
+# Checks if the file is locked by any process
 function isLockedBySomeProcesses ($fileName) {
     Get-Process | ForEach-Object {
         $_.Modules | ForEach-Object {
@@ -21,23 +21,23 @@ function isLockedBySomeProcesses ($fileName) {
     return 0
 }
 
-# Для каждого файла в папке с ярлыками
+# For each file in the folder with shortcuts
 $files = (Get-ChildItem "$pathToLinks")
 foreach ($filePath in $files) {
-    # Рассматриваем только ярлыки
+    # Consider only labels
     if ($filePath -match "^(.*).lnk$") {
         $fileName = ($filePath | ForEach-Object { $_.Name })
         $fileFullPath = "$pathToLinks/$fileName"
-        # Путь к exe-файлу
+        # Path to the exe file
         $exePath = (New-Object -ComObject WScript.Shell).CreateShortcut("$fileFullPath").TargetPath
         if ((Test-Path -Path "$exePath") -eq $false) {
-            Write-Error "Файл `"$exePath`" не существует!"
+            Write-Error "The file `"$exePath`" does not exist!"
         } else {
             if (isLockedBySomeProcesses("$exePath")) {
-                Write-Warning "Процесс `"$exePath`" уже запущен!"
+                Write-Warning "The `"$exePath`" process is already running!"
             } else {
                 Start-Process -FilePath "$fileFullPath" -Verb RunAs -WindowStyle Minimized
-                Write-Host "Процесс `"$exePath`" запущен!"
+                Write-Host "The process `"$exePath`" has started!"
             }
         }
     }

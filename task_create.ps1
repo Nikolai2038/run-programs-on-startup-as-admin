@@ -2,19 +2,19 @@
 
 $taskName = "RunProgramsOnStartup"
 
-# Создаём расписание запуска
+# Creating a launch schedule
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 
-# Переменную будем передавать в сам скрипт
+# We will pass this variable to the script itself
 $scriptFolder = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-WindowStyle Hidden & '${scriptFolder}/task_script.ps1' '${scriptFolder}'"
 
-# Снимаем регистрацию с задания, если оно уже существует
+# We remove registration of the task if it already exists
 ($is_job_already_created = Get-ScheduledTask -TaskName "$taskName") 2> $null;
 if ($is_job_already_created) {
-    Unregister-ScheduledTask -TaskName "$taskName" | Sleep 3
+    Unregister-ScheduledTask -TaskName "$taskName" | Start-Sleep 3
 }
 
-# Регистрация
+# Registration of the task
 Register-ScheduledTask -TaskName "$taskName" -Trigger $trigger -Action $action
