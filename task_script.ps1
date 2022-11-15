@@ -29,8 +29,7 @@ foreach ($filePath in $files) {
         $fileName = ($filePath | ForEach-Object { $_.Name })
         $fileFullPath = "$pathToExecutables/$fileName"
         # Путь к exe-файлу
-        $exePath = (New-Object -ComObject WScript.Shell).CreateShortcut("$filePath").TargetPath
-        Write-Host "$exePath"
+        $exePath = (New-Object -ComObject WScript.Shell).CreateShortcut("$fileFullPath").TargetPath
         if ((Test-Path -Path "$exePath") -eq $false) {
             Write-Error "Файл `"$exePath`" не существует!"
         } else {
@@ -38,6 +37,7 @@ foreach ($filePath in $files) {
                 Write-Warning "Процесс `"$exePath`" уже запущен!"
             } else {
                 Start-Process -FilePath "$fileFullPath" -Verb RunAs -WindowStyle Minimized
+                Write-Host "Процесс `"$exePath`" запущен!"
             }
         }
     }
