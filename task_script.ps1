@@ -36,7 +36,7 @@ foreach ($filePath in $files) {
             if (isLockedBySomeProcesses("$exePath")) {
                 Write-Warning "The `"$exePath`" process is already running!"
             } else {
-                Start-Process -FilePath "$fileFullPath" -Verb RunAs -WindowStyle Minimized
+                Start-Process -FilePath "$fileFullPath" -Verb RunAs
                 Write-Host "The process `"$exePath`" has started!"
             }
         }
