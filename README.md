@@ -16,6 +16,11 @@ This is achieved by creating an appropriate scheduled task. To create it, you ne
     & "<path to the cloned repository>/task_create.ps1"
     ```
 
+    Enter (if necessary):
+    ```powershell
+    Y
+    ```
+
 The created scheduled task can be viewed in the `Windows Task Manager` and changed manually if required. The name of the task being created: `RunProgramsOnStartup`. Calling the `task_create.ps1` script again will recreate the task.
 
 The task itself calls the script `task_script.ps1`, which, in turn, runs all shortcuts of programs located in the folder `<path to the cloned repository>/links` in a loop. At the moment, the script works with shortcuts, not executable files. If there are no shortcuts, then nothing will happen.
