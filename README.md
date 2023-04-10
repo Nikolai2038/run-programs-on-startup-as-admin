@@ -18,7 +18,7 @@ This is achieved by creating an appropriate scheduled task. To create it, you ne
 
     Enter (if necessary):
     ```powershell
-    Y
+    R
     ```
 
 The created scheduled task can be viewed in the `Windows Task Manager` and changed manually if required. The name of the task being created: `RunProgramsOnStartup`. Calling the `task_create.ps1` script again will recreate the task.
