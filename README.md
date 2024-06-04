@@ -28,7 +28,7 @@ You also need to enable the ability to execute scripts `*.ps1`, if not already e
 2. Clone the repository:
 
     ```powershell
-    git clone https://github.com/Nikolai2038/bash-webp-to-gif.git
+    git clone https://github.com/Nikolai2038/run-programs-on-startup-as-admin.git
     ```
 
 3. Reopen `PowerShell` **as administrator**;

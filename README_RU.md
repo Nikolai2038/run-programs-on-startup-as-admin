@@ -28,7 +28,7 @@
 2. Склонировать репозиторий:
 
     ```powershell
-    git clone https://github.com/Nikolai2038/bash-webp-to-gif.git
+    git clone https://github.com/Nikolai2038/run-programs-on-startup-as-admin.git
     ```
 
 3. Переоткрыть `PowerShell` **от имени администратора**;
